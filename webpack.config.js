@@ -2,7 +2,7 @@
  * @Author: taohong
  * @Date:   2017-10-22 23:14:54
  * @Last Modified by:   taohong
- * @Last Modified time: 2017-10-25 00:04:44
+ * @Last Modified time: 2017-10-31 00:01:14
  */
 var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -41,7 +41,17 @@ let config = {
   module: {
     loaders: [
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
+      { test: /\.(gif|png|jpg|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=100&name=resource/[name].[ext]' },
     ]
+  },
+  resolve: {
+    alias: {
+      node_modules: __dirname + '/node_modules',
+      util: __dirname + '/src/util',
+      page: __dirname + '/src/page',
+      service: __dirname + '/src/service',
+      image: __dirname + '/src/image'
+    }
   },
   plugins: [
     // 独立通用模块到js/base.js

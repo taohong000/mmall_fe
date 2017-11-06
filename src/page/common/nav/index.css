@@ -1,0 +1,29 @@
+/*
+* @Author: taohong
+* @Date:   2017-11-06 00:10:52
+* @Last Modified by:   taohong
+* @Last Modified time: 2017-11-06 00:11:07
+*/
+.nav{
+    background: #eee;
+    height: 30px;
+    line-height: 30px;   
+}
+/* 用户部分 */
+.nav .user{
+    float: left;
+}
+.nav .user.login{
+    display: none;
+}
+.nav .user .link{
+    margin-right: 5px;
+}
+/* 导航链接部分 */
+.nav .nav-list{
+    float: right;
+}
+.nav .nav-list .nav-item{
+    display: inline-block;
+    margin-left: 5px;
+}

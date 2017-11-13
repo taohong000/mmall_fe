@@ -2,7 +2,7 @@
  * @Author: taohong
  * @Date:   2017-10-22 23:14:54
  * @Last Modified by:   taohong
- * @Last Modified time: 2017-11-13 22:58:48
+ * @Last Modified time: 2017-11-13 23:46:05
  */
 var webpack = require('webpack')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -16,6 +16,7 @@ var getHtmlConfig = function(name, title) {
   return {
     template: './src/view/' + name + '.html',
     filename: 'view/' + name + '.html',
+    favicon: './favicon.ico',
     title: title,
     inject: true,
     hash: true,
@@ -42,11 +43,11 @@ let config = {
     'user-center-update': ['./src/page/user-center-update/index.js'],
     'user-pass-update': ['./src/page/user-pass-update/index.js'],
     'result': ['./src/page/result/index.js'],
+    'about': ['./src/page/about/index.js'],
   },
   output: {
-    path: './dist',
-    // 根据url的路径
-    publicPath: '/dist',
+    path: __dirname + '/dist/',
+    publicPath: 'dev' === WEBPACK_ENV ? '/dist/' : '//s.happymmall.com/mmall-fe/dist/',
     filename: 'js/[name].js'
   },
   externals: {
@@ -56,7 +57,14 @@ let config = {
     loaders: [
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
       { test: /\.(gif|png|jpg|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=100&name=resource/[name].[ext]' },
-      { test: /\.string$/, loader: 'html-loader' }
+      {
+        test: /\.string$/,
+        loader: 'html-loader',
+        query: {
+          minimize: true,
+          removeAttributeQuotes: false
+        }
+      }
     ]
   },
   resolve: {
@@ -91,7 +99,8 @@ let config = {
     new HtmlWebpackPlugin(getHtmlConfig('user-center', '个人中心')),
     new HtmlWebpackPlugin(getHtmlConfig('user-center-update', '修改个人信息')),
     new HtmlWebpackPlugin(getHtmlConfig('user-pass-update', '修改密码')),
-    new HtmlWebpackPlugin(getHtmlConfig('result', '操作结果'))
+    new HtmlWebpackPlugin(getHtmlConfig('result', '操作结果')),
+    new HtmlWebpackPlugin(getHtmlConfig('about', '关于MMall'))
   ]
 }
 
